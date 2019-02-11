@@ -17,6 +17,7 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
                   : (NSDictionary*) mapUserDetail
                   : (NSDictionary*) optionColorTheme
                   : (NSDictionary*) optionFont
+                  : (NSDictionary*) paymentMethod
                   : (RCTResponseSenderBlock)callback){
 
     [CONFIG setClientKey:[optionConect valueForKey:@"clientKey"]
@@ -61,6 +62,7 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
     [[MidtransTransactionDetails alloc] initWithOrderID:[transRequest valueForKey:@"transactionId"]
                                          andGrossAmount:totalAmount];
 
+    NSString *paymentMethodString = [paymentMethod valueForKey:@"method"];
     [[MidtransMerchantClient shared]
      requestTransactionTokenWithTransactionDetails:transactionDetail
      itemDetails:itemitems
@@ -69,7 +71,8 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
          if (token) {
              UIViewController *ctrl = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
 
-             MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token];
+             MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token
+                                                                                        andPaymentFeature:paymentMethodString];
 
              [ctrl presentViewController:vc animated:NO completion:nil];
              //set the delegate

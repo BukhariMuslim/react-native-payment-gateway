@@ -12,6 +12,7 @@ import com.midtrans.sdk.corekit.callback.TransactionFinishedCallback;
 import com.midtrans.sdk.corekit.core.Constants;
 import com.midtrans.sdk.corekit.core.LocalDataHandler;
 import com.midtrans.sdk.corekit.core.MidtransSDK;
+import com.midtrans.sdk.corekit.core.PaymentMethod;
 import com.midtrans.sdk.corekit.core.SdkCoreFlowBuilder;
 import com.midtrans.sdk.corekit.core.TransactionRequest;
 import com.midtrans.sdk.corekit.core.themes.CustomColorTheme;
@@ -112,7 +113,7 @@ public class MidtransModule extends ReactContextBaseJavaModule {
      *
      **/
     @ReactMethod
-    public void checkOut(ReadableMap optionConect, ReadableMap transRequest, ReadableArray itemDetails, ReadableMap creditCardOptions, ReadableMap mapUserDetail, ReadableMap optionColorTheme, ReadableMap optionFont, Callback resultCheckOut){
+    public void checkOut(ReadableMap optionConect, ReadableMap transRequest, ReadableArray itemDetails, ReadableMap creditCardOptions, ReadableMap mapUserDetail, ReadableMap optionColorTheme, ReadableMap optionFont, ReadableMap paymentMethod, Callback resultCheckOut){
         Object self;
 
         //setUser Detail
@@ -140,6 +141,9 @@ public class MidtransModule extends ReactContextBaseJavaModule {
         String defaultText = optionFont == null ? optionFont.getString("defaultText") : DEFAULT_TEXT;
         String semiBoldText = optionFont == null ? optionFont.getString("semiBoldText") : SEMI_BOLD_TEXT;
         String boldText = optionFont == null ? optionFont.getString("boldText") : BOLD_TEXT ;
+
+        String payMethod = paymentMethod == null ? paymentMethod.getString("method") : PaymentMethod.CREDIT_CARD;
+
         // SDK initiation for UIflow
         SdkUIFlowBuilder.init()
                 .setContext(reactContext)
@@ -170,7 +174,7 @@ public class MidtransModule extends ReactContextBaseJavaModule {
         transactionRequest.setCardPaymentInfo(creditCardOptions.getString("paymentMode"), creditCardOptions.getBoolean("secure"));
 
         MidtransSDK.getInstance().setTransactionRequest(transactionRequest);
-        MidtransSDK.getInstance().startPaymentUiFlow(getCurrentActivity());
+        MidtransSDK.getInstance().startPaymentUiFlow(getCurrentActivity(), payMethod);
     }
 
 

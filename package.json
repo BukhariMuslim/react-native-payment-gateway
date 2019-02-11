@@ -1,4 +1,3 @@
-
 {
   "name": "react-native-payment-gateway",
   "version": "0.4.3",
@@ -16,6 +15,5 @@
   "peerDependencies": {
     "react-native": "0.57.7",
     "react-native-windows": "0.57.0-rc.0"
-
   }
 }
