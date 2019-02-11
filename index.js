@@ -10,6 +10,7 @@ export default {
                         mapUserDetail: ?object,
                         optionColorTheme: ?object,
                         optionFont: ?object,
+                        paymentMethod: ?object,
                         resultCheckOut) {
         MidtransModule.checkOut(
             optionConect,
@@ -19,6 +20,7 @@ export default {
             mapUserDetail,
             optionColorTheme,
             optionFont,
+            paymentMethod,
             resultCheckOut);
     },
 };
