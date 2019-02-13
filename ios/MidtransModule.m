@@ -62,7 +62,7 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
     [[MidtransTransactionDetails alloc] initWithOrderID:[transRequest valueForKey:@"transactionId"]
                                          andGrossAmount:totalAmount];
 
-    NSString *paymentMethodString = [paymentMethod valueForKey:@"method"];
+    MidtransPaymentFeature *paymentMethodFeature = [[MidtransPaymentFeature]paymentMethod valueForKey:@"method"];
     [[MidtransMerchantClient shared]
      requestTransactionTokenWithTransactionDetails:transactionDetail
      itemDetails:itemitems
@@ -72,7 +72,7 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
              UIViewController *ctrl = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
 
              MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token
-                                                                                        andPaymentFeature:paymentMethodString];
+                                                                                        andPaymentFeature:paymentMethodFeature];
 
              [ctrl presentViewController:vc animated:NO completion:nil];
              //set the delegate
@@ -85,6 +85,43 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
          }
      }];
 };
+
+@property (nonatomic) MidtransPaymentFeature type;
+
++ (NSDictionary *)typePaymentFeatures
+{
+    return @{@(MidtransPaymentFeatureCreditCard) : @"CREDIT_CARD",
+             @(MidtransPaymentFeatureBankTransfer) : @"BANK_TRANSFER",
+             @(MidtransPaymentFeatureBankTransferBCAVA) : @"BANK_TRANSFER_BCA",
+             @(MidtransPaymentFeatureBankTransferMandiriVA) : @"BANK_TRANSFER_MANDIRI",
+             @(MidtransPaymentFeatureBankTransferBNIVA) : @"BANK_TRANSFER_BNI",
+             @(MidtransPaymentFeatureBankTransferPermataVA) : @"BANK_TRANSFER_PERMATA",
+             @(MidtransPaymentFeatureBankTransferOtherVA) : @"BANK_TRANSFER_OTHER",
+             @(MidtransPaymentFeatureKlikBCA) : @"KLIK_BCA",
+             @(MidtransPaymentFeatureIndomaret) : @"INDOMARET",
+             @(MidtransPaymentFeatureCIMBClicks) : @"CIMB_CLICKS",
+             @(MidtransPaymentFeatureCStore) : @"STORE",
+             @(midtranspaymentfeatureBCAKlikPay) : @"BCA_KLIK_PAY",
+             @(MidtransPaymentFeatureMandiriEcash) : @"MANDIRI_ECASH",
+             @(MidtransPaymentFeatureEchannel) : @"ECHANNEL",
+             @(MidtransPaymentFeaturePermataVA) : @"PERMATA_VA",
+             @(MidtransPaymentFeatureBRIEpay) : @"BRI_E_PAY",
+             @(MidtransPaymentFeatureAkulaku) : @"AKULAKU",
+             @(MidtransPaymentFeatureTelkomselEcash) : @"TELKOMSEL_E_CASH",
+             @(MidtransPyamentFeatureDanamonOnline) : @"DANAMON_ONLINE",
+             @(MidtransPaymentFeatureIndosatDompetku) : @"INDOSAT_DOMPETKU",
+             @(MidtransPaymentFeatureXLTunai) : @"XL_TUNAI",
+             @(MidtransPaymentFeatureMandiriClickPay) : @"MANDIRI_CLICK_PAY",
+             @(MidtransPaymentFeatureKiosON) : @"KIOS_ON",
+             @(MidtransPaymentFeatureGCI) : @"GCI",
+             @(MidtransPaymentFeatureGOPAY) : @"GO_PAY",
+             @(MidtransPaymentCreditCardForm) : @"CREDIT_CARD_FORM"
+}
+
+- (NSString *)typePaymentFeature
+{
+    return [[self class] typePaymentFeatures][@(self.type)];
+}
 
 #pragma mark - MidtransUIPaymentViewControllerDelegate
 
