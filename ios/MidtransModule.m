@@ -62,7 +62,8 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
     [[MidtransTransactionDetails alloc] initWithOrderID:[transRequest valueForKey:@"transactionId"]
                                          andGrossAmount:totalAmount];
 
-    MidtransPaymentFeature *paymentMethodFeature = [[MidtransPaymentFeature]paymentMethod valueForKey:@"method"];
+    NSString *paymentMethodString = [paymentMethod valueForKey:@"method"];
+
     [[MidtransMerchantClient shared]
      requestTransactionTokenWithTransactionDetails:transactionDetail
      itemDetails:itemitems
@@ -71,12 +72,32 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
          if (token) {
              UIViewController *ctrl = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
 
-             MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token
-                                                                                        andPaymentFeature:paymentMethodFeature];
-
-             [ctrl presentViewController:vc animated:NO completion:nil];
-             //set the delegate
-             vc.paymentDelegate = self;
+             if ([paymentMethodString isEqualToString:@"CREDIT_CARD"]) {
+                 MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token
+                                                                                            andPaymentFeature:MidtransPaymentFeatureCreditCard];
+                 [ctrl presentViewController:vc animated:NO completion:nil];
+                 vc.paymentDelegate = self;
+             } else if ([paymentMethodString isEqualToString:@"GO_PAY"]) {
+                 MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token
+                                                                                            andPaymentFeature:MidtransPaymentFeatureGOPAY];
+                 [ctrl presentViewController:vc animated:NO completion:nil];
+                 vc.paymentDelegate = self;
+             } else if ([paymentMethodString isEqualToString:@"BANK_TRANSFER_BNI"]) {
+                 MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token
+                                                                                            andPaymentFeature:MidtransPaymentFeatureBankTransferBNIVA];
+                 [ctrl presentViewController:vc animated:NO completion:nil];
+                 vc.paymentDelegate = self;
+             } else if ([paymentMethodString isEqualToString:@"BANK_TRANSFER_MANDIRI"]) {
+                 MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token
+                                                                                            andPaymentFeature:MidtransPaymentFeatureBankTransferMandiriVA];
+                 [ctrl presentViewController:vc animated:NO completion:nil];
+                 vc.paymentDelegate = self;
+             } else if ([paymentMethodString isEqualToString:@"BANK_TRANSFER_PERMATA"]) {
+                 MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token
+                                                                                            andPaymentFeature:MidtransPaymentFeatureBankTransferPermataVA];
+                 [ctrl presentViewController:vc animated:NO completion:nil];
+                 vc.paymentDelegate = self;
+             }
 
              callback(@[@"init", [NSNull null]]);
          }
@@ -85,43 +106,6 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
          }
      }];
 };
-
-@property (nonatomic) MidtransPaymentFeature type;
-
-+ (NSDictionary *)typePaymentFeatures
-{
-    return @{@(MidtransPaymentFeatureCreditCard) : @"CREDIT_CARD",
-             @(MidtransPaymentFeatureBankTransfer) : @"BANK_TRANSFER",
-             @(MidtransPaymentFeatureBankTransferBCAVA) : @"BANK_TRANSFER_BCA",
-             @(MidtransPaymentFeatureBankTransferMandiriVA) : @"BANK_TRANSFER_MANDIRI",
-             @(MidtransPaymentFeatureBankTransferBNIVA) : @"BANK_TRANSFER_BNI",
-             @(MidtransPaymentFeatureBankTransferPermataVA) : @"BANK_TRANSFER_PERMATA",
-             @(MidtransPaymentFeatureBankTransferOtherVA) : @"BANK_TRANSFER_OTHER",
-             @(MidtransPaymentFeatureKlikBCA) : @"KLIK_BCA",
-             @(MidtransPaymentFeatureIndomaret) : @"INDOMARET",
-             @(MidtransPaymentFeatureCIMBClicks) : @"CIMB_CLICKS",
-             @(MidtransPaymentFeatureCStore) : @"STORE",
-             @(midtranspaymentfeatureBCAKlikPay) : @"BCA_KLIK_PAY",
-             @(MidtransPaymentFeatureMandiriEcash) : @"MANDIRI_ECASH",
-             @(MidtransPaymentFeatureEchannel) : @"ECHANNEL",
-             @(MidtransPaymentFeaturePermataVA) : @"PERMATA_VA",
-             @(MidtransPaymentFeatureBRIEpay) : @"BRI_E_PAY",
-             @(MidtransPaymentFeatureAkulaku) : @"AKULAKU",
-             @(MidtransPaymentFeatureTelkomselEcash) : @"TELKOMSEL_E_CASH",
-             @(MidtransPyamentFeatureDanamonOnline) : @"DANAMON_ONLINE",
-             @(MidtransPaymentFeatureIndosatDompetku) : @"INDOSAT_DOMPETKU",
-             @(MidtransPaymentFeatureXLTunai) : @"XL_TUNAI",
-             @(MidtransPaymentFeatureMandiriClickPay) : @"MANDIRI_CLICK_PAY",
-             @(MidtransPaymentFeatureKiosON) : @"KIOS_ON",
-             @(MidtransPaymentFeatureGCI) : @"GCI",
-             @(MidtransPaymentFeatureGOPAY) : @"GO_PAY",
-             @(MidtransPaymentCreditCardForm) : @"CREDIT_CARD_FORM"
-}
-
-- (NSString *)typePaymentFeature
-{
-    return [[self class] typePaymentFeatures][@(self.type)];
-}
 
 #pragma mark - MidtransUIPaymentViewControllerDelegate
 
