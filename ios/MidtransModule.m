@@ -2,12 +2,30 @@
 #import "MidtransModule.h"
 #import <React/RCTLog.h>
 
-@implementation MidtransModule
+@implementation MidtransModule {
+    RCTResponseSenderBlock _resCallback;
+}
 
 - (dispatch_queue_t)methodQueue
 {
     return dispatch_get_main_queue();
 }
+
+- (RCTResponseSenderBlock) getResCallback {
+    return _resCallback;
+}
+
+- (void) runCallback:(NSString *) param {
+    RCTResponseSenderBlock callback = [self getResCallback];
+    if (callback) {
+        callback(@[param, [NSNull null]]);
+    }
+}
+
+- (void) setResCallback:(RCTResponseSenderBlock) resCallback {
+    _resCallback = resCallback;
+}
+
 RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
@@ -23,6 +41,8 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
     [CONFIG setClientKey:[optionConect valueForKey:@"clientKey"]
              environment:[optionConect valueForKey:@"sandbox"] ? MidtransServerEnvironmentSandbox : MidtransServerEnvironmentProduction
        merchantServerURL:[optionConect valueForKey:@"urlMerchant"]];
+    
+    [self setResCallback: callback];
 
     NSMutableArray *itemitems = [[NSMutableArray alloc] init];
     for (NSDictionary *ele in items) {
@@ -99,10 +119,11 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
                  vc.paymentDelegate = self;
              }
 
-             callback(@[@"init", [NSNull null]]);
+             // [self runCallback:@"init"];
          }
          else {
-             callback(@[error.localizedDescription, [NSNull null]]);
+             [self runCallback:error.localizedDescription];
+             // callback(@[error.localizedDescription, [NSNull null]]);
          }
      }];
 };
@@ -110,18 +131,22 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
 #pragma mark - MidtransUIPaymentViewControllerDelegate
 
 - (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentSuccess:(MidtransTransactionResult *)result{
-    RCTLogInfo(@"%@", result);
+    // RCTLogInfo(@"%@", result);
+    [self runCallback:@"success"];
 }
 
 - (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentFailed:(NSError *)error {
-    RCTLogInfo(@"%@", error);
+    // RCTLogInfo(@"%@", error);
+    [self runCallback:@"failed"];
 }
 
 - (void)paymentViewController:(MidtransUIPaymentViewController *)viewController paymentPending:(MidtransTransactionResult *)result {
-    RCTLogInfo(@"%@", result);
+    // RCTLogInfo(@"%@", result);
+    [self runCallback:@"pending"];
 }
 
 - (void)paymentViewController_paymentCanceled:(MidtransUIPaymentViewController *)viewController {
-    RCTLogInfo(@"Cancel Transaction");
+    // RCTLogInfo(@"Cancel Transaction");
+    [self runCallback:@"cancel"];
 }
 @end
