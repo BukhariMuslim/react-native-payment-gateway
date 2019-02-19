@@ -84,6 +84,17 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
 
     NSString *paymentMethodString = [paymentMethod valueForKey:@"method"];
 
+    MidtransUIFontSource *fontSource = [[MidtransUIFontSource alloc] initWithFontNameBold:[optionFont valueForKey:@"boldText"]
+                                                                          fontNameRegular:[optionFont valueForKey:@"semiBoldText"]
+                                                                            fontNameLight:[optionFont valueForKey:@"defaultText"]];
+    
+    UIColor *themeColor = [UIColor colorWithRed:[[optionColorTheme valueForKey:@"r"] integerValue]/255.
+                                          green:[[optionColorTheme valueForKey:@"g"] integerValue]/255.
+                                           blue:[[optionColorTheme valueForKey:@"b"] integerValue]/255.
+                                          alpha:1.0];
+
+    [MidtransUIThemeManager applyCustomThemeColor:themeColor themeFont:fontSource];
+
     [[MidtransMerchantClient shared]
      requestTransactionTokenWithTransactionDetails:transactionDetail
      itemDetails:itemitems
