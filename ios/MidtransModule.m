@@ -128,6 +128,10 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
                                                                                             andPaymentFeature:MidtransPaymentFeatureBankTransferPermataVA];
                  [ctrl presentViewController:vc animated:NO completion:nil];
                  vc.paymentDelegate = self;
+             } else {
+                 MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController alloc] initWithToken:token];
+                 [ctrl presentViewController:vc animated:NO completion:nil];
+                 vc.paymentDelegate = self;
              }
 
              // [self runCallback:@"init"];

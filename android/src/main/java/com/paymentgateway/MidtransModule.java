@@ -142,7 +142,7 @@ public class MidtransModule extends ReactContextBaseJavaModule {
         String semiBoldText = optionFont == null ? optionFont.getString("semiBoldText") : SEMI_BOLD_TEXT;
         String boldText = optionFont == null ? optionFont.getString("boldText") : BOLD_TEXT ;
 
-        PaymentMethod payMethod = paymentMethod == null ? PaymentMethod.CREDIT_CARD : PaymentMethod.valueOf(paymentMethod.getString("method"));
+        String paymentMethodString = paymentMethod.getString("method");
 
         // SDK initiation for UIflow
         SdkUIFlowBuilder.init()
@@ -174,7 +174,12 @@ public class MidtransModule extends ReactContextBaseJavaModule {
         transactionRequest.setCardPaymentInfo(creditCardOptions.getString("paymentMode"), creditCardOptions.getBoolean("secure"));
 
         MidtransSDK.getInstance().setTransactionRequest(transactionRequest);
-        MidtransSDK.getInstance().startPaymentUiFlow(getCurrentActivity(), payMethod);
+        if (paymentMethodString == "") {
+            MidtransSDK.getInstance().startPaymentUiFlow(getCurrentActivity());
+        } else {
+            PaymentMethod payMethod = paymentMethod == null ? PaymentMethod.CREDIT_CARD : PaymentMethod.valueOf(paymentMethodString);
+            MidtransSDK.getInstance().startPaymentUiFlow(getCurrentActivity(), payMethod);
+        }
     }
 
 
