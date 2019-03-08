@@ -39,7 +39,7 @@ RCT_EXPORT_METHOD(checkOut:(NSDictionary*) optionConect
                   : (RCTResponseSenderBlock)callback){
 
     [CONFIG setClientKey:[optionConect valueForKey:@"clientKey"]
-             environment:[optionConect valueForKey:@"sandbox"] ? MidtransServerEnvironmentSandbox : MidtransServerEnvironmentProduction
+             environment:[[optionConect valueForKey:@"sandbox"] boolValue] ? MidtransServerEnvironmentSandbox : MidtransServerEnvironmentProduction
        merchantServerURL:[optionConect valueForKey:@"urlMerchant"]];
     
     [self setResCallback: callback];
