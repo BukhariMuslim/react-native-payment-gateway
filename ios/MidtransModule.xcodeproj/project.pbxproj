@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B64B9761508DD1915101B6F /* libPods-MidtransModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C068979F9B5A6D175BAA1781 /* libPods-MidtransModule.a */; };
 		B3E7B58A1CC2AC0600A0062D /* MidtransModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* MidtransModule.m */; };
 /* End PBXBuildFile section */
 
@@ -24,8 +25,11 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libMidtransModule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMidtransModule.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D996205B4A63C155AE6D581 /* Pods-MidtransModule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MidtransModule.release.xcconfig"; path = "Target Support Files/Pods-MidtransModule/Pods-MidtransModule.release.xcconfig"; sourceTree = "<group>"; };
+		8D4AA971F0FBF86188D17273 /* Pods-MidtransModule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MidtransModule.debug.xcconfig"; path = "Target Support Files/Pods-MidtransModule/Pods-MidtransModule.debug.xcconfig"; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* MidtransModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidtransModule.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* MidtransModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidtransModule.m; sourceTree = "<group>"; };
+		C068979F9B5A6D175BAA1781 /* libPods-MidtransModule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MidtransModule.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B64B9761508DD1915101B6F /* libPods-MidtransModule.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,13 +52,33 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		480FB1EBC6F17D74BBB474E6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C068979F9B5A6D175BAA1781 /* libPods-MidtransModule.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
 				B3E7B5881CC2AC0600A0062D /* MidtransModule.h */,
 				B3E7B5891CC2AC0600A0062D /* MidtransModule.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
+				B932439BF70FACE41F39FC8E /* Pods */,
+				480FB1EBC6F17D74BBB474E6 /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		B932439BF70FACE41F39FC8E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8D4AA971F0FBF86188D17273 /* Pods-MidtransModule.debug.xcconfig */,
+				2D996205B4A63C155AE6D581 /* Pods-MidtransModule.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -63,6 +88,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "MidtransModule" */;
 			buildPhases = (
+				EBFB67D44E0CCE428098450C /* [CP] Check Pods Manifest.lock */,
 				58B511D71A9E6C8500147676 /* Sources */,
 				58B511D81A9E6C8500147676 /* Frameworks */,
 				58B511D91A9E6C8500147676 /* CopyFiles */,
@@ -106,6 +132,31 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EBFB67D44E0CCE428098450C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MidtransModule-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		58B511D71A9E6C8500147676 /* Sources */ = {
@@ -202,6 +253,7 @@
 		};
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D4AA971F0FBF86188D17273 /* Pods-MidtransModule.debug.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../../ios/**",
@@ -220,6 +272,7 @@
 		};
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2D996205B4A63C155AE6D581 /* Pods-MidtransModule.release.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../../ios/**",

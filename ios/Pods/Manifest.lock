@@ -1,0 +1,24 @@
+PODS:
+  - MidtransCoreKit (1.14.8)
+  - MidtransKit (1.14.8):
+    - MidtransCoreKit (= 1.14.8)
+    - MidtransKit/UI (= 1.14.8)
+  - MidtransKit/UI (1.14.8):
+    - MidtransCoreKit (= 1.14.8)
+
+DEPENDENCIES:
+  - MidtransCoreKit
+  - MidtransKit
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - MidtransCoreKit
+    - MidtransKit
+
+SPEC CHECKSUMS:
+  MidtransCoreKit: 07e2be33b57f8a603a26a13f8e62bc88aa117c2e
+  MidtransKit: 7230d06338292961ff3b2ec953e40ba48dc2f000
+
+PODFILE CHECKSUM: 955ad0e5f336d21817e5e54ca5ed039a317ea7f4
+
+COCOAPODS: 1.6.1
