@@ -1,10 +1,10 @@
 PODS:
-  - MidtransCoreKit (1.14.8)
-  - MidtransKit (1.14.8):
-    - MidtransCoreKit (= 1.14.8)
-    - MidtransKit/UI (= 1.14.8)
-  - MidtransKit/UI (1.14.8):
-    - MidtransCoreKit (= 1.14.8)
+  - MidtransCoreKit (1.15.0)
+  - MidtransKit (1.15.0):
+    - MidtransCoreKit (= 1.15.0)
+    - MidtransKit/UI (= 1.15.0)
+  - MidtransKit/UI (1.15.0):
+    - MidtransCoreKit (= 1.15.0)
 
 DEPENDENCIES:
   - MidtransCoreKit
@@ -16,8 +16,8 @@ SPEC REPOS:
     - MidtransKit
 
 SPEC CHECKSUMS:
-  MidtransCoreKit: 07e2be33b57f8a603a26a13f8e62bc88aa117c2e
-  MidtransKit: 7230d06338292961ff3b2ec953e40ba48dc2f000
+  MidtransCoreKit: fc4bb7ee80b28e847ae0d44e2134a6c0e18d68a9
+  MidtransKit: ad3fdd649354cbe3c4290c32cd64f296dc9a09f3
 
 PODFILE CHECKSUM: 955ad0e5f336d21817e5e54ca5ed039a317ea7f4
 
