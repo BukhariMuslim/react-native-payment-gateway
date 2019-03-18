@@ -2,8 +2,8 @@
 platform :ios, '9.0'
 
 def shared_pods
-    pod 'MidtransCoreKit', '~> 1.15.0'
-    pod 'MidtransKit', '~> 1.15.0'
+    pod 'MidtransCoreKit', '~> 1.14.6'
+    pod 'MidtransKit', '~> 1.14.6'
 end
 
 target 'MidtransModule' do
