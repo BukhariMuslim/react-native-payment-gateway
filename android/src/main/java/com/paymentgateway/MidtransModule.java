@@ -174,10 +174,10 @@ public class MidtransModule extends ReactContextBaseJavaModule {
         transactionRequest.setCardPaymentInfo(creditCardOptions.getString("paymentMode"), creditCardOptions.getBoolean("secure"));
 
         MidtransSDK.getInstance().setTransactionRequest(transactionRequest);
-        if (paymentMethodString == "") {
+        if (paymentMethodString.equals("")) {
             MidtransSDK.getInstance().startPaymentUiFlow(getCurrentActivity());
         } else {
-            PaymentMethod payMethod = paymentMethod == null ? PaymentMethod.CREDIT_CARD : PaymentMethod.valueOf(paymentMethodString);
+            PaymentMethod payMethod = PaymentMethod.valueOf(paymentMethodString);
             MidtransSDK.getInstance().startPaymentUiFlow(getCurrentActivity(), payMethod);
         }
     }
