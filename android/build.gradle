@@ -10,6 +10,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.library'
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 def safeExtGet(prop, fallback) {
   rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
@@ -39,17 +40,9 @@ repositories {
 }
 
 dependencies {
-    // For using the Veritrans Sandbox
-    implementation 'com.midtrans:corekit:1.20.4-SANDBOX'
+    implementation "com.midtrans:corekit:${project.env.get("MIDTRANS_VERSION")}"
 
-    // For using the Veritrans Production
-    implementation 'com.midtrans:corekit:1.20.4'
-
-    // For using the Midtrans Sandbox
-    implementation 'com.midtrans:uikit:1.20.4-SANDBOX' // change the number to the latest version
-
-    // For using the Midtrans Production
-    implementation 'com.midtrans:uikit:1.20.4' // change the number to the latest version
+    implementation "com.midtrans:uikit:${project.env.get("MIDTRANS_VERSION")}"
 
     implementation 'com.facebook.react:react-native:+'
 }
